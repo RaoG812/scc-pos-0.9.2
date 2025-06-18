@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { XCircle, Loader2 } from 'lucide-react';
-// Removed 'import { marked } from 'marked';' as we are no longer converting Markdown to HTML for rendering.
-
+import {
+    Flower, Syringe, Cookie, Cigarette, Megaphone, Leaf, ShoppingBag, MoreHorizontal,
+    ShoppingCart, Users, History, Settings, Package, Scan, XCircle, Loader2, Trash2, CheckCircle,
+    PlusCircle, Edit2, ChevronDown, ChevronUp, AlertCircle, CircleDashed,
+    Grid, Printer, HardDrive, LogIn, PieChart, Coins, CreditCard, QrCode, Atom, Wand2,
+    // A smaller, more manageable set for AI suggestions + common usage
+    Book, Coffee, Utensils, Gamepad, Dumbbell, Home, Heart, Gift, Lightbulb, Truck,
+    Box, Wine, Apple, Pizza, Music, Film, Microscope, FlaskConical,
+    Diamond, Scale, Bolt, Sun, Cloud, Moon, Star, Bell, Building, Car, Award,
+    BookOpen, Camera, Clipboard, Code, Compass, Database, Droplet, Egg, Factory,
+    Feather, Flag, Glasses, Globe, Hammer, Hand, Hash, HeartHandshake,
+    Key, LampCeiling, LeafyGreen, Link, Loader, Lock, Mail, MapPin, MessageCircle,
+    Monitor, Mountain, Newspaper, Palette, PenTool, Phone, PiggyBank, Plane,
+    Puzzle, Rocket, Scissors, Shield, Sparkles, Sprout, Tag, Tent, TreePalm,
+    Umbrella, User, CheckCheck, VolumeX, Watch, Wifi, WineOff, Wrench, Zap, GripVertical
+} from 'lucide-react';
 // Assuming types are defined in '@/types' - these are needed for type safety
 import { InventoryItem, Transaction, Member, Order } from '@/types';
 
@@ -12,6 +25,9 @@ interface SalesReportAIProps {
     members: Member[];
     orders: Order[];
     formatCurrency: (amount: number) => string;
+    // Add these two new properties
+    supabaseUrl: string;
+    supabaseAnonKey: string;
 }
 
 const SalesReportAI: React.FC<SalesReportAIProps> = ({
@@ -102,7 +118,7 @@ const SalesReportAI: React.FC<SalesReportAIProps> = ({
         };
 
         generateReport();
-    }, [transactions, inventoryItems, members, orders, staffId, staffName]);
+    }, [transactions, inventoryItems, members, orders]);
 
     // Removed the 'marked.parse' step. We will display the raw Markdown content.
     // const formattedReport = marked.parse(reportContent);
