@@ -2,7 +2,22 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import React from 'react'; // Ensure React is imported if this is a separate chunk
-
+import {
+    Flower, Syringe, Cookie, Cigarette, Megaphone, Leaf, ShoppingBag, MoreHorizontal,
+    ShoppingCart, Users, History, Settings, Package, Scan, XCircle, Trash2, CheckCircle,
+    PlusCircle, Edit2, ChevronDown, ChevronUp, AlertCircle, CircleDashed,
+    Grid, Printer, HardDrive, LogIn, PieChart, Coins, CreditCard, QrCode, Atom, Wand2,
+    // A smaller, more manageable set for AI suggestions + common usage
+    Book, Coffee, Utensils, Gamepad, Dumbbell, Home, Heart, Gift, Lightbulb, Truck,
+    Box, Wine, Apple, Pizza, Music, Film, Microscope, FlaskConical,
+    Diamond, Scale, Bolt, Sun, Cloud, Moon, Star, Bell, Building, Car, Award,
+    BookOpen, Camera, Clipboard, Code, Compass, Database, Droplet, Egg, Factory,
+    Feather, Flag, Glasses, Globe, Hammer, Hand, Hash, HeartHandshake,
+    Key, LampCeiling, LeafyGreen, Link, Loader, Lock, Mail, MapPin, MessageCircle,
+    Monitor, Mountain, Newspaper, Palette, PenTool, Phone, PiggyBank, Plane,
+    Puzzle, Rocket, Scissors, Shield, Sparkles, Sprout, Tag, Tent, TreePalm,
+    Umbrella, User, CheckCheck, VolumeX, Watch, Wifi, WineOff, Wrench, Zap, GripVertical
+} from 'lucide-react';
 // Assuming Category type is defined elsewhere (e.g., in '@/types') as:
 // interface Category {
 //     id: string;
@@ -10,6 +25,12 @@ import React from 'react'; // Ensure React is imported if this is a separate chu
 //     // other properties like icon, etc.
 // }
 
+// New interface for Category (to be stored in Supabase)
+interface Category {
+    id: string;
+    name: string;
+    icon_name: string; // Storing the icon name as a string
+}
 // New Component: SortableMenuItemCategory
 interface SortableMenuItemCategoryProps {
     category: Category;
