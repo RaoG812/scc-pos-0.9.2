@@ -66,7 +66,6 @@ const iconMap: { [key: string]: string } = {
     'bakery': 'Cake',
     'dessert': 'IceCream',
     'ice': 'IceCream',
-    'cream': 'IceCream',
     'snack': 'Popcorn',
     'chocolate': 'Cookie',
     'candy': 'Cookie',
