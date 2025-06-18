@@ -793,18 +793,16 @@ function App() {
         }
 
         setCurrentTransactionItems(prevItems => [
-            ...prevItems,
-            {
-                id: selectedItemForTransaction.id, // Inventory item ID
-                name: selectedItemForTransaction.name,
-                price: selectedPricingOption.price, // Price from selected option
-                unit: selectedPricingOption.unit, // Unit from selected option
-                category: selectedItemForTransaction.category,
-                quantity: parseInt(itemTransactionQuantity.toString()),
-                subtotal: selectedPricingOption.price * parseInt(itemTransactionQuantity.toString()),
-                selectedOptionId: selectedPricingOption.id, // ID of the chosen pricing option
-            }
-        ]);
+  ...prevItems,
+  {
+    ...selectedItemForTransaction,
+    price: selectedPricingOption.price,
+    unit: selectedPricingOption.unit,
+    quantity: parseInt(itemTransactionQuantity.toString()),
+    subtotal: selectedPricingOption.price * parseInt(itemTransactionQuantity.toString()),
+    selectedOptionId: selectedPricingOption.id,
+  }
+]);
 
         setShowItemSelectionModal(false);
         setSelectedItemForTransaction(null);
