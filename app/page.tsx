@@ -3513,15 +3513,17 @@ const handleCancelOrder = (order: AppOrder) => {
 
             {/* Sales Report AI Modal */}
             {showAiReportModal && (
-                <SalesReportAI
-                    members={members}
-                    transactions={transactions}
-                    inventoryItems={inventoryItems}
-                    orders={orders}
-                    onClose={() => setShowAiReportModal(false)}
-                    formatCurrency={formatCurrency}
-                />
-            )}
+  <SalesReportAI
+    members={members}
+    transactions={transactions}
+    inventoryItems={inventoryItems}
+    orders={orders}
+    onClose={() => setShowAiReportModal(false)}
+    formatCurrency={formatCurrency}
+    supabaseUrl={SUPABASE_URL}
+    supabaseAnonKey={SUPABASE_ANON_KEY}
+  />
+)}
 
             {/* Item Selection Modal (for PoS Screen) */}
             {showItemSelectionModal && (
