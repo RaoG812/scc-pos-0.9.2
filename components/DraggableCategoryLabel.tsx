@@ -1,5 +1,23 @@
 import React, { useRef, useState, useCallback, memo, useEffect } from 'react';
+
 import * as LucideIcons from 'lucide-react'; // Import all icons from lucide-react
+
+import {
+    Flower, Syringe, Cookie, Cigarette, Megaphone, Leaf, ShoppingBag, MoreHorizontal,
+    ShoppingCart, Users, History, Settings, Package, Scan, XCircle, Trash2, CheckCircle,
+    PlusCircle, Edit2, ChevronDown, ChevronUp, AlertCircle, CircleDashed,
+    Grid, Printer, HardDrive, LogIn, PieChart, Coins, CreditCard, QrCode, Atom, Wand2,
+    // A smaller, more manageable set for AI suggestions + common usage
+    Book, Coffee, Utensils, Gamepad, Dumbbell, Home, Heart, Gift, Lightbulb, Truck,
+    Box, Wine, Apple, Pizza, Music, Film, Microscope, FlaskConical,
+    Diamond, Scale, Bolt, Sun, Cloud, Moon, Star, Bell, Building, Car, Award,
+    BookOpen, Camera, Clipboard, Code, Compass, Database, Droplet, Egg, Factory,
+    Feather, Flag, Glasses, Globe, Hammer, Hand, Hash, HeartHandshake,
+    Key, LampCeiling, LeafyGreen, Link, Loader, Lock, Mail, MapPin, MessageCircle,
+    Monitor, Mountain, Newspaper, Palette, PenTool, Phone, PiggyBank, Plane,
+    Puzzle, Rocket, Scissors, Shield, Sparkles, Sprout, Tag, Tent, TreePalm,
+    Umbrella, User, CheckCheck, VolumeX, Watch, Wifi, WineOff, Wrench, Zap, GripVertical
+} from 'lucide-react';
 
 // Extend LucideIcons to include a common default if not already in Lucide
 const ExtendedLucideIcons = { ...LucideIcons, CircleDashed: LucideIcons.CircleDashed };
@@ -32,25 +50,22 @@ const iconMap: { [key: string]: React.ElementType } = {
     Cloud: LucideIcons.Cloud,
     Gift: LucideIcons.Gift,
     Droplet: LucideIcons.Droplet,
-    Cream: LucideIcons.Cream,
     Bomb: LucideIcons.Bomb,
     Wrench: LucideIcons.Wrench,
     Heart: LucideIcons.Heart,
-    Seed: LucideIcons.Seed,
+    Sprout: LucideIcons.Sprout, // Changed from Seed to Sprout
     ClipboardList: LucideIcons.ClipboardList,
     HardHat: LucideIcons.HardHat,
     GlassWater: LucideIcons.GlassWater,
     CupSoda: LucideIcons.CupSoda,
-    Bottle: LucideIcons.Bottle,
+    Wine: LucideIcons.Wine, // Changed from Bottle to Wine
     Carrot: LucideIcons.Carrot,
     Cake: LucideIcons.Cake,
-    IceCream: LucideIcons.IceCream,
+    IceCreamCone: LucideIcons.IceCreamCone, // Changed from IceCream
     Popcorn: LucideIcons.Popcorn,
-    Sprout: LucideIcons.Sprout,
-    Tool: LucideIcons.Tool,
     Lightbulb: LucideIcons.Lightbulb,
     Trees: LucideIcons.Trees,
-    Fertilize: LucideIcons.Fertilize,
+    Shovel: LucideIcons.Shovel, // Changed from Fertilize to Shovel
     GripVertical: LucideIcons.GripVertical, // Ensure GripVertical is included for the handle
 };
 
@@ -279,7 +294,6 @@ const DraggableCategoryLabel: React.FC<DraggableCategoryLabelProps> = memo(
                 }
             };
         }, [internalTouchMoveHandler]); // Dependency on internalTouchMoveHandler ensures it's current
-
 
         return (
             <>
