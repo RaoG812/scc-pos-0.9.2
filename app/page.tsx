@@ -38,7 +38,16 @@ interface AppMember extends Member {
 interface AppInventoryItem extends InventoryItem {
     // InventoryItem already has pricing_options, available_stock, reserved_stock from types/index.ts
 }
-
+interface TransactionLineItem {
+  id: string;
+  name: string;
+  price: number;
+  unit: string;
+  category: string;
+  quantity: number;
+  subtotal: number;
+  selectedOptionId: string;
+}
 interface AppTransaction extends Transaction {
     items: Array<{
         id: string; // The ID of the item in the transaction, not necessarily inventory item ID
@@ -359,7 +368,7 @@ function App() {
 
     // PoS & Member Related States
     const [currentMember, setCurrentMember] = useState<AppMember | null>(null);
-    const [currentTransactionItems, setCurrentTransactionItems] = useState<AppInventoryItem[]>([]);
+    const [currentTransactionItems, setCurrentTransactionItems] = useState<TransactionLineItem[]>([]);
     const [transactionSearchTerm, setTransactionSearchTerm] = useState<string>('');
     const [nfcInput, setNfcInput] = useState(''); // For PoS member scan
     const [nfcStatus, setNfcStatus] = useState('Ready to scan...');
@@ -795,9 +804,11 @@ function App() {
         setCurrentTransactionItems(prevItems => [
   ...prevItems,
   {
-    ...selectedItemForTransaction,
+    id: selectedItemForTransaction.id,
+    name: selectedItemForTransaction.name,
     price: selectedPricingOption.price,
     unit: selectedPricingOption.unit,
+    category: selectedItemForTransaction.category,
     quantity: parseInt(itemTransactionQuantity.toString()),
     subtotal: selectedPricingOption.price * parseInt(itemTransactionQuantity.toString()),
     selectedOptionId: selectedPricingOption.id,
