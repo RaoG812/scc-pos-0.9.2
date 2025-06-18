@@ -11,8 +11,6 @@ interface SalesReportAIProps {
     inventoryItems: InventoryItem[];
     members: Member[];
     orders: Order[];
-    staffId: string;
-    staffName: string;
     formatCurrency: (amount: number) => string;
 }
 
@@ -22,8 +20,6 @@ const SalesReportAI: React.FC<SalesReportAIProps> = ({
     inventoryItems,
     members,
     orders,
-    staffId,
-    staffName,
     formatCurrency
 }) => {
     const [reportContent, setReportContent] = useState<string>('');
