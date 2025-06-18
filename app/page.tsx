@@ -1897,11 +1897,14 @@ const handleCancelOrder = (order: AppOrder) => {
         : allItemCategories.map(c => c.name);
 
     // Handler for when an icon is suggested from the CategoryIconSuggester
-    const handleIconSuggested = (iconName: string) => {
-        setSuggestedIconName(iconName);
-        setShowCategoryIconSuggester(false); // Close the suggester modal
-    };
-
+    const handleIconSuggested = (iconName: string | null) => {
+  if (iconName) {
+    setSuggestedIconName(iconName);
+  } else {
+    setSuggestedIconName(null);
+  }
+  setShowCategoryIconSuggester(false);
+};
 
     if (!isLoggedIn) {
         return (
