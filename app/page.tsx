@@ -3515,8 +3515,6 @@ const handleCancelOrder = (order: AppOrder) => {
             {showAiReportModal && (
                 <SalesReportAI
                     members={members}
-                    supabaseUrl={SUPABASE_URL}
-                    supabaseAnonKey={SUPABASE_ANON_KEY}
                     transactions={transactions}
                     inventoryItems={inventoryItems}
                     orders={orders}
