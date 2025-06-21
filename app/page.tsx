@@ -359,7 +359,8 @@ function App() {
     const [loginUsername, setLoginUsername] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
     const [showLoginModal, setShowLoginModal] = useState(true); // Start with login modal visible
-
+// Add this state near other useState declarations
+const [isDiscountApplied, setIsDiscountApplied] = useState(false);
     // App Data States
     const [members, setMembers] = useState<AppMember[]>([]);
     const [transactions, setTransactions] = useState<AppTransaction[]>([]);
@@ -839,24 +840,28 @@ function App() {
         setSelectedCategoryFilter(null); // Reset filter
         setIsFulfillingOrder(false); // Reset order fulfillment state
         setOrderBeingFulfilledId(null); // Reset order ID
+        setIsDiscountApplied(false);
     };
 
-    const calculateTotals = () => {
-        const subtotal = currentTransactionItems.reduce((acc, item) => acc + item.subtotal, 0);
-        const discountRate = currentMember ? getDiscountRate(currentMember.tier) : 0;
-        const discountAmount = subtotal * discountRate;
-        const subtotalAfterDiscount = subtotal - discountAmount;
-        const taxAmount = subtotalAfterDiscount * taxRate;
-        const finalTotal = subtotalAfterDiscount + taxAmount;
+   const calculateTotals = useCallback(() => {
+    const subtotal = currentTransactionItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    // Only apply discount if the button is pressed and there's a current member
+    const discountRate = (isDiscountApplied && currentMember) ? getDiscountRate(currentMember.tier) : 0;
+    const discountAmount = subtotal * discountRate;
+    
+    const taxableAmount = subtotal - discountAmount;
+    const taxAmount = taxableAmount * taxRate;
+    const finalTotal = taxableAmount + taxAmount;
 
-        return {
-            subtotal,
-            discountRate,
-            discountAmount,
-            taxAmount,
-            finalTotal
-        };
+    return {
+        subtotal,
+        discountRate,
+        discountAmount,
+        taxAmount,
+        finalTotal
     };
+}, [currentTransactionItems, currentMember, taxRate, isDiscountApplied, getDiscountRate]);
 
     const handleInitiatePayment = async (): Promise<string> => {
         if (currentTransactionItems.length === 0) {
@@ -1154,11 +1159,12 @@ function App() {
     };
 
     const handleNfcRemove = () => {
-        setCurrentMember(null);
-        setNfcInput('');
-        setNfcStatus('Card removed. Ready to scan...');
-        setCurrentOrderMemberUID(null); // Clear pending orders
-    };
+    setCurrentMember(null);
+    setNfcInput('');
+    setNfcStatus('Card removed. Ready to scan...');
+    setCurrentOrderMemberUID(null);
+    setIsDiscountApplied(false);  // Reset discount state
+};
 
     // --- Member Management Logic ---
     const handleAddMember = async () => {
@@ -2191,7 +2197,17 @@ const handleCancelOrder = (order: AppOrder) => {
                                     <p className="text-lg text-gray-300">Tier: <span className={`font-semibold ${currentMember.tier === 'Gold' ? 'text-yellow-400' : currentMember.tier === 'Supreme' ? 'text-blue-400' : 'text-green-400'}`}>{currentMember.tier}</span></p>
                                     <p className="text-lg text-gray-300">Discount: <span className="font-semibold text-red-400">{getDiscountRate(currentMember.tier) * 100}%</span></p>
                                     <p className="text-lg text-gray-300">Total Purchases: <span className="font-semibold">{formatCurrency(currentMember.total_purchases || 0)}</span></p>
-
+{/* Add the new Apply Discount button */}
+        <button
+            onClick={() => setIsDiscountApplied(!isDiscountApplied)}
+            className={`w-full px-4 py-2 rounded-lg font-semibold transition-colors duration-200 shadow-md flex items-center justify-center ${
+                isDiscountApplied 
+                ? 'bg-red-600 text-white hover:bg-red-700' 
+                : 'bg-green-600 text-white hover:bg-green-700'
+            }`}
+        >
+            {isDiscountApplied ? 'Remove Discount' : 'Apply Member Discount'}
+        </button>
                                     {/* Display Pending Orders for Current Member */}
                                     {pendingOrdersForCurrentMember.length > 0 && (
                                         <div className="mt-6 pt-4 border-t border-gray-700">
